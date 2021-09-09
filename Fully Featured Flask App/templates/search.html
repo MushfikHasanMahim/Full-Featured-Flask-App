@@ -1,0 +1,80 @@
+{% extends "base.html" %} {% block head %}
+<title>Todo App-Search</title>
+{% endblock %} {% block body %}
+<div class="container" , style="width: 90%; padding: 20px">
+  <form actions="/search" , method="POST">
+    <div class="input-group mb-3">
+      <input
+        type="search"
+        class="form-control text-center"
+        placeholder="Search Here"
+        aria-label="Recipient's username"
+        aria-describedby="button-addon2"
+        ,
+        name="search"
+        style="width: 200px"
+      />
+      <button class="btn btn-outline-primary" type="submit" id="button-addon2">
+        <i class="fa fa-search"></i>
+      </button>
+    </div>
+  </form>
+</div>
+
+{% if todos %}
+
+<div
+  class="text-center container table-responsive"
+  style="
+    width: 90%;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 15px;
+  "
+>
+  <br />
+  <h1 class="my-3" style="text-align: center">
+    <u>Your Todos</u>
+  </h1>
+  <br />
+
+  <table class="table table-sm table align-middle table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col" colspan="2">Description</th>
+        <th scope="col" colspan="3">Time</th>
+        <th scope="col" colspan="2">Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for todo in todos %}
+      <tr>
+        <th scope="row">{{ loop.index }}</th>
+        <td>{{ todo.title }}</td>
+        <td colspan="2">{{ todo.desc }}</td>
+        <td colspan="3">{{ todo.date_created }}</td>
+        <td colspan="2">
+          <a
+            href="/delete/{{ todo.sno }}"
+            type="button"
+            class="mx-2 btn btn-sm my-2 btn-outline-primary"
+            ><i class="fa fa-trash"></i
+          ></a>
+          <a
+            href="/update/{{todo.sno}}"
+            type="button"
+            class="mx-2 btn btn-sm my-2 btn-outline-primary"
+            ><i class="fa fa-pencil"></i
+          ></a>
+        </td>
+        {% endfor %} {% endif %}
+      </tr>
+    </tbody>
+  </table>
+  <br />
+</div>
+
+{% endblock %}
